@@ -72,9 +72,6 @@ export interface IOptionsField {
     required?: { message?: string } | boolean;
     options: OptionItem[];
   };
-  markdown: {
-    required?: { message?: string } | boolean;
-  };
   select_async: {
     required?: { message?: string } | boolean;
     type: SelectAsyncType;

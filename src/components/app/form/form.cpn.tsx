@@ -27,7 +27,6 @@ import { useEffect, useMemo } from "react";
 import { createSchemaYup } from "./form.validate";
 import { useForm, Controller, FieldValues, Control } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import MarkdownFormField from "./customField/markdown.cpn";
 import SelectAsyncField from "./customField/selectAsync.cpn";
 // import SelectAsyncField from "./customField/selectAsync.cpn";
 
@@ -198,14 +197,6 @@ function renderField<T extends FieldValues>(
                   placeholder={placeholder}
                   disabled={disabled}
                   className={`w-full ${error ? "border-red-500" : ""}`}
-                />
-              );
-
-            case "markdown":
-              return (
-                <MarkdownFormField
-                  value={controllerField.value}
-                  onChange={controllerField.onChange}
                 />
               );
 

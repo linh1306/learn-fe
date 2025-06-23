@@ -272,22 +272,6 @@ export function createSchemaYup<T extends FieldValues>(
         break;
       }
 
-      case "markdown": {
-        let schema = yup.string();
-        const opts = options as Partial<IOptionsField["markdown"]>;
-
-        if (opts.required) {
-          const message =
-            typeof opts.required === "object"
-              ? opts.required.message
-              : undefined;
-          schema = schema.required(message || "Trường này không được để trống");
-        }
-
-        shape[fieldName] = schema;
-        break;
-      }
-
       case "select_async": {
         let schema = null;
         const opts = options as Partial<IOptionsField["select_async"]>;

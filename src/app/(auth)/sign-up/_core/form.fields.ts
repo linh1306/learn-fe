@@ -1,14 +1,15 @@
-import { BodySignUpDto } from "@/api/swagger/data-contracts";
-import { FieldOption } from "@/components/form";
+import { FieldOption } from "@/components/app/form";
+import { BodySignUpDto } from "@/model";
 
 export const fields: FieldOption<BodySignUpDto>[] = [
   {
-    name: "code",
-    label: "Mã sinh viên",
+    name: "email",
+    label: "Email",
     type: "text",
-    placeholder: "B20DCCN000",
+    placeholder: "Nhập email của bạn",
     options: {
       required: true,
+      email: true,
     },
     grid: 24,
   },
@@ -23,33 +24,10 @@ export const fields: FieldOption<BodySignUpDto>[] = [
     grid: 24,
   },
   {
-    name: "email",
-    label: "Email",
-    type: "text",
-    placeholder: "Nhập email của bạn",
-    options: {
-      required: true,
-      email: true,
-    },
-    grid: 24,
-  },
-  // {
-  //   name: "course",
-  //   label: "Khóa",
-  //   type: "text",
-  //   placeholder: "D20",
-  //   options: {
-  //     required: true,
-  //   },
-  //   grid: {
-  //     xs: 24,
-  //   },
-  // },
-  {
     name: "password",
-    label: "Mật khẩu",
+    label: "Password",
     type: "password",
-    placeholder: "Tạo mật khẩu của bạn",
+    placeholder: "Nhập mật khẩu",
     options: {
       required: true,
     },

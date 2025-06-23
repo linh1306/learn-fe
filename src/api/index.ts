@@ -6,30 +6,39 @@ const axiosInstance = axios.create({
   withCredentials: true,
 });
 
+interface ResErr {
+  message: string;
+  statusCode: number;
+}
+
+interface ResSuccess<T> {
+  data: T;
+  pagination?: {
+    total: number;
+    page: number;
+  };
+}
+
 axiosInstance.interceptors.response.use(
   (response) => {
     return response;
   },
-  (error: AxiosError) => {
+  (error: AxiosError<ResErr>) => {
     console.log("error", error.status);
 
     if (error.status === 401) {
-      window.location.href = "/sign-in";
+      // window.location.href = "/sign-in";
       return;
     }
-    toast.error(error.response.data.message);
+    if (axios.isAxiosError(error)) {
+      toast.error(error.response?.data.message || "Có lỗi xảy ra");
+    } else {
+      toast.error("Lỗi không xác định");
+    }
     // return Promise.reject(error);
   }
 );
-
-type Res<T> = {
-  data: T;
-  pagination: {
-    page: number;
-    pageSize: number;
-    total: number;
-  };
-};
+export type ExtractResult<T> = T extends { data: infer D } ? D : T;
 
 export const customMutator = async <T>({
   url,
@@ -46,7 +55,7 @@ export const customMutator = async <T>({
   headers?: Record<string, string>;
   responseType?: string;
   signal?: AbortSignal;
-}): Promise<Res<T>> => {
+}): Promise<ResSuccess<T>> => {
   const response = await axiosInstance.request<T>({
     url,
     method,
@@ -56,7 +65,7 @@ export const customMutator = async <T>({
     signal,
   });
 
-  return response.data as Res<T>;
+  return response.data as ResSuccess<T>;
 };
 
 // Override lỗi nếu cần

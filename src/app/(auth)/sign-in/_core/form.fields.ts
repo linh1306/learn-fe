@@ -1,5 +1,5 @@
-import { BodySignInDto } from "@/api/swagger/data-contracts";
-import { FieldOption } from "@/components/form";
+import { FieldOption } from "@/components/app/form";
+import { BodySignInDto } from "@/model";
 
 export const fields: FieldOption<BodySignInDto>[] = [
   {

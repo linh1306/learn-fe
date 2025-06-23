@@ -3,28 +3,14 @@
 import { useApiProfile } from "@/api/auth/auth";
 import { AppSidebar } from "@/components/app-sidebar";
 import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import {
   SidebarInset,
   SidebarProvider,
-  SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { setUser } from "@/store/slices/AppSlice";
-import { ChevronLeft } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  const router = useRouter();
   const dispatch = useDispatch();
   const { data } = useApiProfile();
 
@@ -34,9 +20,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     }
   }, [data]);
 
-  const handleBackRouter = () => {
-    router.back();
-  };
+  // const handleBackRouter = () => {
+  //   router.back();
+  // };
 
   return (
     <SidebarProvider>
