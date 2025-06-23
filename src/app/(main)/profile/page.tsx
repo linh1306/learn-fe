@@ -55,7 +55,7 @@ export default function Component() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-[100dvh] bg-background">
       <div className="container mx-auto py-4 px-4 max-w-4xl sm:py-8">
         {/* Header */}
         <div className="mb-6 sm:mb-8">

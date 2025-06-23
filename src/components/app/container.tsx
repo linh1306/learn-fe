@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cn } from "@/lib/utils";
+import { SidebarTrigger } from "../ui/sidebar";
 
 type ContainerProps = React.HTMLAttributes<HTMLDivElement> & {
   asChild?: boolean;
@@ -15,22 +16,27 @@ function ContainerComponent({
   return (
     <Comp
       data-slot="container"
-      className={cn("flex flex-col h-screen", className)}
+      className={cn("flex flex-col h-[100dvh]", className)}
       {...props}
     />
   );
 }
 
 // Các component con
-function Header({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
-  return <div data-slot="header" className={cn("p-4", className)} {...props} />;
+function Header({ className, ...props }: React.HTMLAttributes<HTMLDivElement> & {
+  hiddenMenu?: boolean
+}) {
+  return <div data-slot="header" className={cn("p-4 flex items-center", className)} {...props} >
+    {!props.hiddenMenu && <SidebarTrigger className="-ml-1" />}
+    {props.children}
+  </div>;
 }
 
 function Content({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
-  const {id, ...prop} = props
+  const { id, ...prop } = props
   return (
     <div id={id} className="flex-1 p-4 scrollbar overflow-y-auto">
       <div data-slot="content" className={cn("", className)} {...prop} />
