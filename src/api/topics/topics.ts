@@ -32,6 +32,7 @@ import type {
 import type {
   ApiGetTopicsParams,
   BodyCreateTopicDto,
+  BodyCreateVocabularyDto,
   BodyUpdateTopicDto,
   ResFindOneTopicDto,
   TopicsDto
@@ -536,6 +537,71 @@ export const useApiRemoveTopic = <TError = ErrorType<unknown>,
       > => {
 
       const mutationOptions = getApiRemoveTopicMutationOptions(options);
+
+      return useMutation(mutationOptions , queryClient);
+    }
+    /**
+ * @summary Thêm từ vựng
+ */
+export const apiCreateVocabulary = (
+    topicId: string,
+    bodyCreateVocabularyDto: BodyType<BodyCreateVocabularyDto>,
+ signal?: AbortSignal
+) => {
+      
+      
+      return customMutator<TopicsDto>(
+      {url: `/topics/${topicId}/vocabularies`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: bodyCreateVocabularyDto, signal
+    },
+      );
+    }
+  
+
+
+export const getApiCreateVocabularyMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiCreateVocabulary>>, TError,{topicId: string;data: BodyType<BodyCreateVocabularyDto>}, TContext>, }
+): UseMutationOptions<Awaited<ReturnType<typeof apiCreateVocabulary>>, TError,{topicId: string;data: BodyType<BodyCreateVocabularyDto>}, TContext> => {
+
+const mutationKey = ['apiCreateVocabulary'];
+const {mutation: mutationOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof apiCreateVocabulary>>, {topicId: string;data: BodyType<BodyCreateVocabularyDto>}> = (props) => {
+          const {topicId,data} = props ?? {};
+
+          return  apiCreateVocabulary(topicId,data,)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type ApiCreateVocabularyMutationResult = NonNullable<Awaited<ReturnType<typeof apiCreateVocabulary>>>
+    export type ApiCreateVocabularyMutationBody = BodyType<BodyCreateVocabularyDto>
+    export type ApiCreateVocabularyMutationError = ErrorType<unknown>
+
+    /**
+ * @summary Thêm từ vựng
+ */
+export const useApiCreateVocabulary = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof apiCreateVocabulary>>, TError,{topicId: string;data: BodyType<BodyCreateVocabularyDto>}, TContext>, }
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof apiCreateVocabulary>>,
+        TError,
+        {topicId: string;data: BodyType<BodyCreateVocabularyDto>},
+        TContext
+      > => {
+
+      const mutationOptions = getApiCreateVocabularyMutationOptions(options);
 
       return useMutation(mutationOptions , queryClient);
     }

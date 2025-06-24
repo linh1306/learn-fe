@@ -258,7 +258,7 @@ function renderGridFormItems<T extends FieldValues>(
         <div className="space-y-2">
           <Label htmlFor={fieldName}>{field.label}</Label>
           {renderField(control, field)}
-          {error && <p className="text-sm text-red-500">{error.message}</p>}
+          {error && <p className="text-xs text-red-500">{error.message}</p>}
         </div>
       </div>
     );

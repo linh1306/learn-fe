@@ -12,15 +12,17 @@ export interface OptionItem {
   value: string | number | boolean;
 }
 
+type GridNumber = 3 | 4 | 6 | 12;
+
 export type GridOptions =
   | {
-      xs?: number;
-      sm?: number;
-      md?: number;
-      lg?: number;
-      xl?: number;
+      xs?: GridNumber;
+      sm?: GridNumber;
+      md?: GridNumber;
+      lg?: GridNumber;
+      xl?: GridNumber;
     }
-  | number;
+  | GridNumber;
 
 export interface IOptionsField {
   text: {

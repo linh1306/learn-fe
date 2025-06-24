@@ -10,6 +10,7 @@ export * from './apiGetTopicsParams';
 export * from './balanceDto';
 export * from './bodyChatWithGeminiDto';
 export * from './bodyCreateTopicDto';
+export * from './bodyCreateVocabularyDto';
 export * from './bodyForgotPasswordDto';
 export * from './bodyResetPasswordDto';
 export * from './bodySignInDto';

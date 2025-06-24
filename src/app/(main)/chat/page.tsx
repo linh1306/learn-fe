@@ -21,7 +21,7 @@ import { useDispatch } from "react-redux";
 import { addMessages } from "@/store/slices/AppSlice";
 import { Loading } from "./_core/loading";
 import { useAppModal } from "@/hooks/useAppModal.hook";
-import modals from "./modal";
+import modals from "./_core/modal";
 
 interface Message {
   id: string;

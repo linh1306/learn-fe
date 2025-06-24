@@ -2,6 +2,8 @@ import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cn } from "@/lib/utils";
 import { SidebarTrigger } from "../ui/sidebar";
+import { ArrowLeft } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 type ContainerProps = React.HTMLAttributes<HTMLDivElement> & {
   asChild?: boolean;
@@ -26,8 +28,13 @@ function ContainerComponent({
 function Header({ className, ...props }: React.HTMLAttributes<HTMLDivElement> & {
   hiddenMenu?: boolean
 }) {
-  return <div data-slot="header" className={cn("p-4 flex items-center", className)} {...props} >
-    {!props.hiddenMenu && <SidebarTrigger className="-ml-1" />}
+  const router = useRouter()
+  return <div data-slot="header" className={cn("p-4 flex items-center border-b-2", className)} {...props} >
+    <div className="flex items-center">
+      <ArrowLeft className="cursor-pointer" size={16} onClick={() => router.back()} />
+      {!props.hiddenMenu && <SidebarTrigger />}
+      {props.title && <h1 className="text-lg font-semibold">{props.title}</h1>}
+    </div>
     {props.children}
   </div>;
 }

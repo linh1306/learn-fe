@@ -31,6 +31,8 @@ export const getApiUpdateTopicResponseMock = (overrideResponse: Partial< TopicsD
 
 export const getApiRemoveTopicResponseMock = (overrideResponse: Partial< TopicsDto > = {}): TopicsDto => ({id: faker.string.alpha({length: {min: 10, max: 20}}), name: faker.string.alpha({length: {min: 10, max: 20}}), description: faker.helpers.arrayElement([faker.helpers.arrayElement([faker.string.alpha({length: {min: 10, max: 20}}), null]), undefined]), userId: faker.helpers.arrayElement([faker.helpers.arrayElement([faker.string.alpha({length: {min: 10, max: 20}}), null]), undefined]), createdAt: `${faker.date.past().toISOString().split('.')[0]}Z`, updatedAt: `${faker.date.past().toISOString().split('.')[0]}Z`, deletedAt: faker.helpers.arrayElement([faker.helpers.arrayElement([`${faker.date.past().toISOString().split('.')[0]}Z`, null]), undefined]), ...overrideResponse})
 
+export const getApiCreateVocabularyResponseMock = (overrideResponse: Partial< TopicsDto > = {}): TopicsDto => ({id: faker.string.alpha({length: {min: 10, max: 20}}), name: faker.string.alpha({length: {min: 10, max: 20}}), description: faker.helpers.arrayElement([faker.helpers.arrayElement([faker.string.alpha({length: {min: 10, max: 20}}), null]), undefined]), userId: faker.helpers.arrayElement([faker.helpers.arrayElement([faker.string.alpha({length: {min: 10, max: 20}}), null]), undefined]), createdAt: `${faker.date.past().toISOString().split('.')[0]}Z`, updatedAt: `${faker.date.past().toISOString().split('.')[0]}Z`, deletedAt: faker.helpers.arrayElement([faker.helpers.arrayElement([`${faker.date.past().toISOString().split('.')[0]}Z`, null]), undefined]), ...overrideResponse})
+
 
 export const getApiCreateTopicMockHandler = (overrideResponse?: TopicsDto | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<TopicsDto> | TopicsDto)) => {
   return http.post('*/topics', async (info) => {await delay(1000);
@@ -91,10 +93,23 @@ export const getApiRemoveTopicMockHandler = (overrideResponse?: TopicsDto | ((in
       })
   })
 }
+
+export const getApiCreateVocabularyMockHandler = (overrideResponse?: TopicsDto | ((info: Parameters<Parameters<typeof http.post>[1]>[0]) => Promise<TopicsDto> | TopicsDto)) => {
+  return http.post('*/topics/:topicId/vocabularies', async (info) => {await delay(1000);
+  
+    return new HttpResponse(JSON.stringify(overrideResponse !== undefined
+    ? (typeof overrideResponse === "function" ? await overrideResponse(info) : overrideResponse)
+    : getApiCreateVocabularyResponseMock()),
+      { status: 200,
+        headers: { 'Content-Type': 'application/json' }
+      })
+  })
+}
 export const getTopicsMock = () => [
   getApiCreateTopicMockHandler(),
   getApiGetTopicsMockHandler(),
   getApiGetTopicMockHandler(),
   getApiUpdateTopicMockHandler(),
-  getApiRemoveTopicMockHandler()
+  getApiRemoveTopicMockHandler(),
+  getApiCreateVocabularyMockHandler()
 ]
